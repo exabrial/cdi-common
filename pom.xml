@@ -23,7 +23,32 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<id>exabrial</id>
+			<name>Jonathan S. Fisher</name>
+			<email>exabrial@gmail.com</email>
+			<url>https://github.com/exabrial</url>
+			<properties>
+				<dev.pgp.fingerprint>871638A21A7F2C38066471420306A354336B4F0D</dev.pgp.fingerprint>
+			</properties>
+		</developer>
+	</developers>
+
 	<dependencies>
+		<dependency>
+			<groupId>com.github.exabrial.cdi</groupId>
+			<artifactId>microspike</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.exabrial.cdi.nanoscopes</groupId>
+			<artifactId>nanoscopes</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>jakarta.enterprise</groupId>
 			<artifactId>jakarta.enterprise.cdi-api</artifactId>
