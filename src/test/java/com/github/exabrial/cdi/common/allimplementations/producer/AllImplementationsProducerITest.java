@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
+import com.github.exabrial.cdi.common.allimplementations.AllImplementationsFeature;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.AlternativeSysoutOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.NotUsedOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.OutputService;
@@ -16,9 +17,11 @@ import com.github.exabrial.cdi.common.allimplementations.producer.test.model.Slf
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.SyserrOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.SysoutOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.TestInjectionTarget;
-import com.github.exabrial.cdi.common.slf4j.producer.Slf4jLogProducer;
+import com.github.exabrial.cdi.common.slf4j.Slf4jFeature;
 
-@Cdi(disableDiscovery = true, classes = { Slf4jLogProducer.class }, recursivePackages = { AllImplementationsProducerITest.class })
+@Cdi(disableDiscovery = true,
+		classes = { AllImplementationsProducerITest.class },
+		recursivePackages = { AllImplementationsFeature.class, Slf4jFeature.class })
 class AllImplementationsProducerITest {
 	@Inject
 	private TestInjectionTarget target;

@@ -11,7 +11,7 @@ import jakarta.json.bind.config.PropertyNamingStrategy;
 
 import org.slf4j.Logger;
 
-import com.github.exabrial.cdi.nanoscopes.boundaryscoped.BoundaryScoped;
+import com.github.exabrial.cdi.nanoscopes.boundaryscoped.api.scope.BoundaryScoped;
 
 @ApplicationScoped
 public class JsonbProducer {

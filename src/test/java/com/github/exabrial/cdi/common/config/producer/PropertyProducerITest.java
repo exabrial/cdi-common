@@ -17,11 +17,13 @@ import jakarta.inject.Inject;
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
-import com.github.exabrial.cdi.common.instanceutil.api.InstanceUtil;
-import com.github.exabrial.cdi.common.slf4j.producer.Slf4jLogProducer;
+import com.github.exabrial.cdi.common.config.ConfigFeature;
+import com.github.exabrial.cdi.common.instanceutil.InstanceUtilFeature;
+import com.github.exabrial.cdi.common.slf4j.Slf4jFeature;
 
 @Cdi(disableDiscovery = true,
-		classes = { Slf4jLogProducer.class, InstanceUtil.class, PropertyProducer.class, TestInjectionOfProperty.class })
+		classes = { PropertyProducerITest.class },
+		recursivePackages = { ConfigFeature.class, InstanceUtilFeature.class, Slf4jFeature.class })
 class PropertyProducerITest {
 	@Inject
 	private TestInjectionOfProperty testInjectionOfProperty;

@@ -10,12 +10,13 @@ import jakarta.inject.Inject;
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
+import com.github.exabrial.cdi.common.instanceutil.InstanceUtilFeature;
 import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
 import com.github.exabrial.cdi.common.instanceutil.api.test.model.DependentService;
 import com.github.exabrial.cdi.common.instanceutil.api.test.model.ResolvableService;
 import com.github.exabrial.cdi.common.instanceutil.api.test.model.UnresolvableService;
 
-@Cdi(disableDiscovery = true, recursivePackages = { InstanceUtilITest.class })
+@Cdi(disableDiscovery = true, classes = { InstanceUtilITest.class }, recursivePackages = { InstanceUtilFeature.class })
 class InstanceUtilITest {
 	@Inject
 	private InstanceUtil instanceUtil;
