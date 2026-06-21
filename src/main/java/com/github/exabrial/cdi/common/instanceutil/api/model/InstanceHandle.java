@@ -2,6 +2,7 @@ package com.github.exabrial.cdi.common.instanceutil.api.model;
 
 import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.inject.Provider;
+
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

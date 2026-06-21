@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Set;
 
+import jakarta.inject.Inject;
+
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +17,6 @@ import com.github.exabrial.cdi.common.allimplementations.producer.test.model.Sys
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.SysoutOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.TestInjectionTarget;
 import com.github.exabrial.cdi.common.slf4j.producer.Slf4jLogProducer;
-
-import jakarta.inject.Inject;
 
 @Cdi(disableDiscovery = true, classes = { Slf4jLogProducer.class }, recursivePackages = { AllImplementationsProducerITest.class })
 class AllImplementationsProducerITest {

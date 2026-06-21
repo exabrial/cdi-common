@@ -2,14 +2,14 @@ package com.github.exabrial.cdi.common.instanceutil.api;
 
 import java.util.Set;
 
-import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.inject.Inject;
+
+import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
 
 @ApplicationScoped
 public class InstanceUtil {

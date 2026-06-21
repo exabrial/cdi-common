@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.inject.Inject;
+
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +14,6 @@ import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
 import com.github.exabrial.cdi.common.instanceutil.api.test.model.DependentService;
 import com.github.exabrial.cdi.common.instanceutil.api.test.model.ResolvableService;
 import com.github.exabrial.cdi.common.instanceutil.api.test.model.UnresolvableService;
-
-import jakarta.inject.Inject;
 
 @Cdi(disableDiscovery = true, recursivePackages = { InstanceUtilITest.class })
 class InstanceUtilITest {

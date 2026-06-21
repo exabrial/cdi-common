@@ -4,11 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.github.exabrial.cdi.common.allimplementations.api.model.exception.NotASetException;
-import com.github.exabrial.cdi.common.allimplementations.api.model.exception.NotAnInterfaceException;
-import com.github.exabrial.cdi.common.allimplementations.api.model.exception.NotApplicationScopedException;
-import com.github.exabrial.cdi.common.allimplementations.api.qualifier.AllImplementations;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.enterprise.inject.Any;
@@ -18,6 +13,11 @@ import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 import jakarta.inject.Inject;
+
+import com.github.exabrial.cdi.common.allimplementations.api.model.exception.NotASetException;
+import com.github.exabrial.cdi.common.allimplementations.api.model.exception.NotAnInterfaceException;
+import com.github.exabrial.cdi.common.allimplementations.api.model.exception.NotApplicationScopedException;
+import com.github.exabrial.cdi.common.allimplementations.api.qualifier.AllImplementations;
 
 @ApplicationScoped
 class AllImplementationsProducer {

@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import jakarta.enterprise.inject.spi.Annotated;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,9 +28,6 @@ import com.github.exabrial.cdi.common.instanceutil.api.InstanceUtil;
 import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
 import com.github.exabrial.junit5.injectmap.InjectExtension;
 import com.github.exabrial.junit5.injectmap.InjectionSource;
-
-import jakarta.enterprise.inject.spi.Annotated;
-import jakarta.enterprise.inject.spi.InjectionPoint;
 
 @ExtendWith({ MockitoExtension.class, InjectExtension.class })
 class PropertyProducerTest {

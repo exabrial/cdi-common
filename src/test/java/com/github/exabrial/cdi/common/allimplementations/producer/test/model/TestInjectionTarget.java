@@ -2,10 +2,11 @@ package com.github.exabrial.cdi.common.allimplementations.producer.test.model;
 
 import java.util.Set;
 
-import com.github.exabrial.cdi.common.allimplementations.api.qualifier.AllImplementations;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
+import com.github.exabrial.cdi.common.allimplementations.api.qualifier.AllImplementations;
+
 import lombok.Getter;
 
 @ApplicationScoped

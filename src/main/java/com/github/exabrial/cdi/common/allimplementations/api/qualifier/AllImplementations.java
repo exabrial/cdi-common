@@ -6,9 +6,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.github.exabrial.cdi.microspike.AnnotationInstanceProvider;
-
 import jakarta.inject.Qualifier;
+
+import com.github.exabrial.cdi.microspike.AnnotationInstanceProvider;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

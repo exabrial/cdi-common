@@ -2,11 +2,11 @@ package com.github.exabrial.cdi.common.errorhandling.interceptor;
 
 import java.util.UUID;
 
-import org.slf4j.MDC;
-
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.AroundTimeout;
 import jakarta.interceptor.InvocationContext;
+
+import org.slf4j.MDC;
 
 public class XaUuidInterceptor {
 	public static final String XA_UUID = "xa-uuid";

@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
-
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.json.bind.config.PropertyVisibilityStrategy;
+
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
  * JSON-B visibility strategy that honors @JsonbTransient and @JsonbProperty, treats public fields as visible, and additionally walks a

@@ -20,6 +20,12 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+import jakarta.inject.Inject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
@@ -30,11 +36,6 @@ import com.github.exabrial.cdi.common.instanceutil.api.InstanceUtil;
 import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.enterprise.inject.spi.InjectionPoint;
-import jakarta.inject.Inject;
 
 @SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR")
 @ApplicationScoped
@@ -229,7 +230,7 @@ public class PropertyProducer {
 		final Config config = injectionPoint.getAnnotated().getAnnotation(Config.class);
 		final String defaultPropertyValue = StringUtils.trimToNull(config.defaultValue());
 		String propertyValue = properties.getOrDefault(configPropertyName, defaultPropertyValue);
-		try (final InstanceHandle<PropertyProducerOverrider> handle = instanceUtil.locate(PropertyProducerOverrider.class)) {
+		try (InstanceHandle<PropertyProducerOverrider> handle = instanceUtil.locate(PropertyProducerOverrider.class)) {
 			if (handle.isResolvable()) {
 				try {
 					propertyValue = handle.get().override(configPropertyName, injectionPoint, propertyValue);

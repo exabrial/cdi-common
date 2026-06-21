@@ -1,9 +1,5 @@
 package com.github.exabrial.cdi.common.jsonb.producer;
 
-import org.slf4j.Logger;
-
-import com.github.exabrial.cdi.nanoscopes.boundaryscoped.BoundaryScoped;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.enterprise.inject.Produces;
@@ -12,6 +8,10 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import jakarta.json.bind.config.PropertyNamingStrategy;
+
+import org.slf4j.Logger;
+
+import com.github.exabrial.cdi.nanoscopes.boundaryscoped.BoundaryScoped;
 
 @ApplicationScoped
 public class JsonbProducer {

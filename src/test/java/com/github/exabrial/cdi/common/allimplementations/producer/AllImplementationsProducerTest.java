@@ -8,6 +8,12 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.enterprise.inject.Any;
+import jakarta.enterprise.inject.spi.AnnotatedField;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,12 +27,6 @@ import com.github.exabrial.cdi.common.allimplementations.api.model.exception.Not
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.OutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.SysoutOutputService;
 import com.github.exabrial.junit5.injectmap.InjectExtension;
-
-import jakarta.enterprise.inject.Any;
-import jakarta.enterprise.inject.spi.AnnotatedField;
-import jakarta.enterprise.inject.spi.Bean;
-import jakarta.enterprise.inject.spi.BeanManager;
-import jakarta.enterprise.inject.spi.InjectionPoint;
 
 @SuppressWarnings("unused")
 @ExtendWith({ MockitoExtension.class, InjectExtension.class })
