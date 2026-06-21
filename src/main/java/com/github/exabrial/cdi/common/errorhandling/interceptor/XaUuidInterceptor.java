@@ -29,8 +29,8 @@ public class XaUuidInterceptor {
 		}
 	}
 
-	public static final void clear() {
-		MDC.remove(XA_UUID);
+	public static final String getMdc() {
+		return MDC.get(XA_UUID);
 	}
 
 	public static final void startMdc() {
@@ -41,7 +41,7 @@ public class XaUuidInterceptor {
 		return UUID.randomUUID().toString().substring(24);
 	}
 
-	public static final String getMdc() {
-		return MDC.get(XA_UUID);
+	public static final void clear() {
+		MDC.remove(XA_UUID);
 	}
 }
