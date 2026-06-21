@@ -49,7 +49,7 @@ class AllImplementationsProducer {
 					} else {
 						throw new NotApplicationScopedException(
 								"@AllImplementations only supports @ApplicationScoped beans. All implementations must be @ApplicationScoped. "
-										+ "An implementation of " + genericTypeName + "was found that is not compatible:" + bean);
+										+ "An implementation of " + genericTypeName + " was found that is not compatible:" + bean);
 					}
 				}
 				return Collections.unmodifiableSet(proxies);

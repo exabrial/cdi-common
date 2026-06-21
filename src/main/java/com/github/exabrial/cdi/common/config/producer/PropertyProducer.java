@@ -47,7 +47,8 @@ public class PropertyProducer {
 	private Map<String, String> properties;
 
 	@PostConstruct
-	void loadProperties() {
+	void postConstruct() {
+		log.info("postConstruct() loading properties...");
 		final Properties propsToLoad = loadPropertiesFile("cdi-common.maven.properties");
 		propsToLoad.putAll(loadPropertiesFile("cdi-common.externalized-strings.properties"));
 		propsToLoad.putAll(loadPropertiesFile("cdi-common.config.properties"));
@@ -66,21 +67,8 @@ public class PropertyProducer {
 			});
 			log.trace("loadProperties() properties:\n{}", sb);
 		} else {
-			log.info("loadProperties() properties.keySet():{}", properties.keySet());
+			log.debug("loadProperties() properties.keySet():{}", properties.keySet());
 		}
-	}
-
-	static Map<String, String> getEnv() {
-		return getEnv(System.getenv());
-	}
-
-	static Map<String, String> getEnv(final Map<String, String> env) {
-		final Map<String, String> parsedEnv = new HashMap<>();
-		for (final String key : env.keySet()) {
-			parsedEnv.put(key.replace("__", "."), env.get(key));
-			parsedEnv.put(key.replace("__", ".").replace("_", "-"), env.get(key));
-		}
-		return parsedEnv;
 	}
 
 	Properties loadPropertiesFile(final String fileName) {
@@ -96,42 +84,12 @@ public class PropertyProducer {
 
 	@Produces
 	@Config
-	byte[] injectFile(final InjectionPoint injectionPoint) {
-		final FileContents fileContents = injectionPoint.getAnnotated().getAnnotation(FileContents.class);
+	BigDecimal injectBigDecimal(final InjectionPoint injectionPoint) {
 		final String property = getProperty(getPropertyName(injectionPoint), injectionPoint);
-		if (fileContents != null) {
-			final InputStream inputStream = getFileContentsInputStream(fileContents, property);
-			return readBytes(inputStream);
+		if (property != null) {
+			return new BigDecimal(property);
 		} else {
-			final String base64 = getProperty(property, injectionPoint);
-			return Base64.getDecoder().decode(base64);
-		}
-	}
-
-	static final InputStream getFileContentsInputStream(final FileContents fileContents, final String property) {
-		final InputStream inputStream;
-		if (!fileContents.isAbsoluteFileSystemPath()) {
-			inputStream = PropertyProducer.class.getResourceAsStream(property);
-		} else {
-			try {
-				inputStream = new FileInputStream(property);
-			} catch (final FileNotFoundException e) {
-				throw new RuntimeException(e);
-			}
-		}
-		return inputStream;
-	}
-
-	@Produces
-	@Config
-	String injectString(final InjectionPoint injectionPoint) {
-		final FileContents fileContents = injectionPoint.getAnnotated().getAnnotation(FileContents.class);
-		final String property = getProperty(getPropertyName(injectionPoint), injectionPoint);
-		if (fileContents != null) {
-			final InputStream inputStream = getFileContentsInputStream(fileContents, property);
-			return convertStreamToString(inputStream);
-		} else {
-			return property;
+			return null;
 		}
 	}
 
@@ -144,6 +102,20 @@ public class PropertyProducer {
 			return Boolean.parseBoolean(property);
 		} else {
 			return null;
+		}
+	}
+
+	@Produces
+	@Config
+	byte[] injectFile(final InjectionPoint injectionPoint) {
+		final FileContents fileContents = injectionPoint.getAnnotated().getAnnotation(FileContents.class);
+		final String property = getProperty(getPropertyName(injectionPoint), injectionPoint);
+		if (fileContents != null) {
+			final InputStream inputStream = getFileContentsInputStream(fileContents, property);
+			return readBytes(inputStream);
+		} else {
+			final String base64 = getProperty(property, injectionPoint);
+			return Base64.getDecoder().decode(base64);
 		}
 	}
 
@@ -171,29 +143,14 @@ public class PropertyProducer {
 
 	@Produces
 	@Config
-	BigDecimal injectBigDecimal(final InjectionPoint injectionPoint) {
+	String injectString(final InjectionPoint injectionPoint) {
+		final FileContents fileContents = injectionPoint.getAnnotated().getAnnotation(FileContents.class);
 		final String property = getProperty(getPropertyName(injectionPoint), injectionPoint);
-		if (property != null) {
-			return new BigDecimal(property);
+		if (fileContents != null) {
+			final InputStream inputStream = getFileContentsInputStream(fileContents, property);
+			return convertStreamToString(inputStream);
 		} else {
-			return null;
-		}
-	}
-
-	@Produces
-	@Config
-	Map<String, String> injectStringToStringMap(final InjectionPoint injectionPoint) {
-		final String config = getProperty(getPropertyName(injectionPoint), injectionPoint);
-		if (config != null) {
-			final String[] keyAndValueList = config.split(",");
-			final Map<String, String> configMap = new LinkedHashMap<>();
-			for (final String keyAndValue : keyAndValueList) {
-				final String[] keyAndValueArray = keyAndValue.split(Pattern.quote("|"));
-				configMap.put(keyAndValueArray[0], keyAndValueArray[1]);
-			}
-			return Collections.unmodifiableMap(configMap);
-		} else {
-			return Map.of();
+			return property;
 		}
 	}
 
@@ -219,21 +176,21 @@ public class PropertyProducer {
 		}
 	}
 
-	String getProperty(final String configPropertyName, final InjectionPoint injectionPoint) {
-		final Config config = injectionPoint.getAnnotated().getAnnotation(Config.class);
-		final String defaultPropertyValue = StringUtils.trimToNull(config.defaultValue());
-		String propertyValue = properties.getOrDefault(configPropertyName, defaultPropertyValue);
-		try (final InstanceHandle<PropertyProducerOverrider> handle = instanceUtil.locate(PropertyProducerOverrider.class)) {
-			if (handle.isResolvable()) {
-				try {
-					propertyValue = handle.get().override(configPropertyName, injectionPoint, propertyValue);
-				} catch (final Exception exception) {
-					log.trace("getProperty() Ignoring exception. configPropertyName:{} injectionPoint:{} propertyValue:{}", configPropertyName,
-							injectionPoint, propertyValue, exception);
-				}
+	@Produces
+	@Config
+	Map<String, String> injectStringToStringMap(final InjectionPoint injectionPoint) {
+		final String config = getProperty(getPropertyName(injectionPoint), injectionPoint);
+		if (config != null) {
+			final String[] keyAndValueList = config.split(",");
+			final Map<String, String> configMap = new LinkedHashMap<>();
+			for (final String keyAndValue : keyAndValueList) {
+				final String[] keyAndValueArray = keyAndValue.split(Pattern.quote("|"));
+				configMap.put(keyAndValueArray[0], keyAndValueArray[1]);
 			}
+			return Collections.unmodifiableMap(configMap);
+		} else {
+			return Map.of();
 		}
-		return propertyValue;
 	}
 
 	/**
@@ -268,16 +225,21 @@ public class PropertyProducer {
 		}
 	}
 
-	/**
-	 * Mirrors the truthy/falsey tokens of commons-beanutils' default BooleanConverter (true|yes|y|on|1 / false|no|n|off|0), so "1"
-	 * resolves to Boolean.TRUE.
-	 */
-	static final Boolean toBoolean(final String value) {
-		return switch (value.trim().toLowerCase(java.util.Locale.ROOT)) {
-			case "true", "yes", "y", "on", "1" -> Boolean.TRUE;
-			case "false", "no", "n", "off", "0" -> Boolean.FALSE;
-			default -> throw new IllegalArgumentException("Cannot convert value to Boolean:" + value);
-		};
+	String getProperty(final String configPropertyName, final InjectionPoint injectionPoint) {
+		final Config config = injectionPoint.getAnnotated().getAnnotation(Config.class);
+		final String defaultPropertyValue = StringUtils.trimToNull(config.defaultValue());
+		String propertyValue = properties.getOrDefault(configPropertyName, defaultPropertyValue);
+		try (final InstanceHandle<PropertyProducerOverrider> handle = instanceUtil.locate(PropertyProducerOverrider.class)) {
+			if (handle.isResolvable()) {
+				try {
+					propertyValue = handle.get().override(configPropertyName, injectionPoint, propertyValue);
+				} catch (final Exception exception) {
+					log.trace("getProperty() Ignoring exception. configPropertyName:{} injectionPoint:{} propertyValue:{}", configPropertyName,
+							injectionPoint, propertyValue, exception);
+				}
+			}
+		}
+		return propertyValue;
 	}
 
 	String getPropertyName(final InjectionPoint injectionPoint) {
@@ -297,6 +259,33 @@ public class PropertyProducer {
 		}
 	}
 
+	static final Map<String, String> getEnv() {
+		return getEnv(System.getenv());
+	}
+
+	static final Map<String, String> getEnv(final Map<String, String> env) {
+		final Map<String, String> parsedEnv = new HashMap<>();
+		for (final String key : env.keySet()) {
+			parsedEnv.put(key.replace("__", "."), env.get(key));
+			parsedEnv.put(key.replace("__", ".").replace("_", "-"), env.get(key));
+		}
+		return parsedEnv;
+	}
+
+	static final InputStream getFileContentsInputStream(final FileContents fileContents, final String property) {
+		final InputStream inputStream;
+		if (!fileContents.isAbsoluteFileSystemPath()) {
+			inputStream = PropertyProducer.class.getResourceAsStream(property);
+		} else {
+			try {
+				inputStream = new FileInputStream(property);
+			} catch (final FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return inputStream;
+	}
+
 	static final byte[] readBytes(final InputStream inputStream) {
 		final byte[] buffer;
 		if (inputStream == null) {
@@ -309,6 +298,18 @@ public class PropertyProducer {
 			}
 		}
 		return buffer;
+	}
+
+	/**
+	 * Mirrors the truthy/falsey tokens of commons-beanutils' default BooleanConverter (true|yes|y|on|1 / false|no|n|off|0), so "1"
+	 * resolves to Boolean.TRUE.
+	 */
+	static final Boolean toBoolean(final String value) {
+		return switch (value.trim().toLowerCase(java.util.Locale.ROOT)) {
+			case "true", "yes", "y", "on", "1" -> Boolean.TRUE;
+			case "false", "no", "n", "off", "0" -> Boolean.FALSE;
+			default -> throw new IllegalArgumentException("Cannot convert value to Boolean:" + value);
+		};
 	}
 
 	@SuppressWarnings("unused")

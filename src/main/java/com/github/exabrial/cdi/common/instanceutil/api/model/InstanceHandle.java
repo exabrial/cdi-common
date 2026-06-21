@@ -2,7 +2,11 @@ package com.github.exabrial.cdi.common.instanceutil.api.model;
 
 import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.inject.Provider;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
+@EqualsAndHashCode
 public class InstanceHandle<T> implements Provider<T>, AutoCloseable {
 	private final T reference;
 	private final boolean resolvable;
