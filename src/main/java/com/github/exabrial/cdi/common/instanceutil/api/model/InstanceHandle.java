@@ -10,15 +10,15 @@ public class InstanceHandle<T> implements Provider<T>, AutoCloseable {
 	private final CreationalContext<?> creationalContext;
 
 	public InstanceHandle() {
-		this.reference = null;
-		this.resolvable = false;
-		this.dependentScope = false;
-		this.creationalContext = null;
+		reference = null;
+		resolvable = false;
+		dependentScope = false;
+		creationalContext = null;
 	}
 
 	public InstanceHandle(final T reference, final CreationalContext<?> creationalContext, final boolean dependentScope) {
 		this.reference = reference;
-		this.resolvable = true;
+		resolvable = true;
 		this.dependentScope = dependentScope;
 		this.creationalContext = creationalContext;
 	}

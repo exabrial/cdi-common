@@ -14,7 +14,7 @@ public class XaUuidInterceptor {
 
 	@AroundTimeout
 	@AroundInvoke
-	public Object intercept(final InvocationContext ctx) throws Exception {
+	Object intercept(final InvocationContext ctx) throws Exception {
 		boolean clearMdc = false;
 		try {
 			if (getMdc() == null) {

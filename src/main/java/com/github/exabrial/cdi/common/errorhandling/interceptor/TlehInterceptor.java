@@ -20,16 +20,16 @@ public class TlehInterceptor {
 
 	@AroundTimeout
 	@AroundInvoke
-	public Object intercept(final InvocationContext ctx) throws Exception {
+	Object intercept(final InvocationContext ctx) throws Exception {
 		try {
 			return ctx.proceed();
 		} catch (final Exception e) {
 			final Throwable rootCause = ExceptionUtils.getRootCause(e);
-			if (rootCause instanceof ConstraintViolationException) {
-				final String sb = logLineForContraintException((ConstraintViolationException) rootCause);
+			if (rootCause instanceof final ConstraintViolationException constraintViolationException) {
+				final String sb = logLineForConstraintException(constraintViolationException);
 				log.error("intercept() ConstraintViolations:{}, parameters:{}", sb, ctx.getParameters(), e);
-			} else if (rootCause instanceof WebApplicationException
-					&& ((WebApplicationException) e).getResponse().getStatus() == Status.UNAUTHORIZED.getStatusCode()) {
+			} else if (rootCause instanceof final WebApplicationException webApplicationException
+					&& webApplicationException.getResponse().getStatus() == Status.UNAUTHORIZED.getStatusCode()) {
 				log.warn("intercept() caught exception", e);
 			} else {
 				log.error("intercept() caught exception", e);
@@ -38,7 +38,7 @@ public class TlehInterceptor {
 		}
 	}
 
-	public static final String logLineForContraintException(final ConstraintViolationException rootCause) {
+	public static final String logLineForConstraintException(final ConstraintViolationException rootCause) {
 		final Set<ConstraintViolation<?>> violations = rootCause.getConstraintViolations();
 		final StringBuilder sb = new StringBuilder();
 		for (final ConstraintViolation<?> violation : violations) {

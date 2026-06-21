@@ -10,12 +10,12 @@ import jakarta.enterprise.inject.spi.InjectionPoint;
 
 @ApplicationScoped
 public class Slf4jLogProducer {
-	private Logger log = LoggerFactory.getLogger(Slf4jLogProducer.class);
+	private final Logger log = LoggerFactory.getLogger(Slf4jLogProducer.class);
 
 	@Produces
 	@Dependent
-	public Logger createLogger(final InjectionPoint injectionPoint) {
-		Class<?> declaringClass = injectionPoint.getMember().getDeclaringClass();
+	Logger createLogger(final InjectionPoint injectionPoint) {
+		final Class<?> declaringClass = injectionPoint.getMember().getDeclaringClass();
 		log.trace("createLogger() declaringClass:{}", declaringClass);
 		return LoggerFactory.getLogger(declaringClass);
 	}
