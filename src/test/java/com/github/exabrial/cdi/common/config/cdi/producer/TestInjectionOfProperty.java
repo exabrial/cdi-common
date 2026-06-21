@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.config;
+package com.github.exabrial.cdi.common.config.cdi.producer;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -1,8 +1,9 @@
-package com.github.exabrial.cdi.common.config;
+package com.github.exabrial.cdi.common.config.cdi.producer;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
@@ -20,10 +21,11 @@ import org.slf4j.Logger;
 
 import com.github.exabrial.cdi.common.config.model.annotation.Config;
 import com.github.exabrial.cdi.common.config.model.annotation.FileContents;
+import com.github.exabrial.cdi.common.instanceutil.InstanceUtil;
+import com.github.exabrial.cdi.common.instanceutil.model.InstanceHandle;
 import com.github.exabrial.junit5.injectmap.InjectExtension;
 import com.github.exabrial.junit5.injectmap.InjectionSource;
 
-import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.spi.Annotated;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 
@@ -56,7 +58,7 @@ class PropertyProducerTest {
 		@Mock
 		private FileContents fileContents;
 		@Mock
-		private Instance<PropertyProducerOverrider> propertyProducerOverriderProvider;
+		private InstanceUtil instanceUtil;
 		@InjectMocks
 		private PropertyProducer propertyProducer;
 		@InjectionSource
@@ -69,6 +71,7 @@ class PropertyProducerTest {
 			when(annotated.getAnnotation(Config.class)).thenReturn(config);
 			when(config.defaultValue()).thenReturn("/testFile.txt");
 			when(config.value()).thenReturn("testKey");
+			when(instanceUtil.locate(any())).thenReturn(new InstanceHandle<>());
 		}
 
 		@Test

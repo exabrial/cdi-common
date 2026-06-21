@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.config;
+package com.github.exabrial.cdi.common.config.cdi.producer;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,17 +23,16 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
+import com.github.exabrial.cdi.common.config.api.PropertyProducerOverrider;
 import com.github.exabrial.cdi.common.config.model.annotation.Config;
 import com.github.exabrial.cdi.common.config.model.annotation.FileContents;
+import com.github.exabrial.cdi.common.instanceutil.InstanceUtil;
+import com.github.exabrial.cdi.common.instanceutil.model.InstanceHandle;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.Dependent;
-import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
-import jakarta.enterprise.inject.spi.Bean;
-import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 import jakarta.inject.Inject;
 
@@ -43,11 +42,8 @@ public class PropertyProducer {
 	@Inject
 	private Logger log;
 	@Inject
-	private BeanManager beanManager;
-	@Inject
-	private Instance<PropertyProducerOverrider> propertyProducerOverriderProvider;
+	private InstanceUtil instanceUtil;
 
-	private Boolean isPropertyProducerOverriderDependentScope;
 	private Map<String, String> properties;
 
 	@PostConstruct
@@ -227,18 +223,13 @@ public class PropertyProducer {
 		final Config config = injectionPoint.getAnnotated().getAnnotation(Config.class);
 		final String defaultPropertyValue = StringUtils.trimToNull(config.defaultValue());
 		String propertyValue = properties.getOrDefault(configPropertyName, defaultPropertyValue);
-
-		if (propertyProducerOverriderProvider.isResolvable()) {
-			PropertyProducerOverrider propertyProducerOverrider = null;
-			try {
-				propertyProducerOverrider = propertyProducerOverriderProvider.get();
-				propertyValue = propertyProducerOverrider.override(configPropertyName, injectionPoint, propertyValue);
-			} catch (final Exception e) {
-				log.trace("getProperty() Ignoring exception. configPropertyName:{} injectionPoint:{} propertyValue:{}", configPropertyName,
-						injectionPoint, propertyValue, e);
-			} finally {
-				if (propertyProducerOverrider != null && isDependentScope(PropertyProducerOverrider.class)) {
-					propertyProducerOverriderProvider.destroy(propertyProducerOverrider);
+		try (final InstanceHandle<PropertyProducerOverrider> handle = instanceUtil.locate(PropertyProducerOverrider.class)) {
+			if (handle.isResolvable()) {
+				try {
+					propertyValue = handle.get().override(configPropertyName, injectionPoint, propertyValue);
+				} catch (final Exception exception) {
+					log.trace("getProperty() Ignoring exception. configPropertyName:{} injectionPoint:{} propertyValue:{}", configPropertyName,
+							injectionPoint, propertyValue, exception);
 				}
 			}
 		}
@@ -298,15 +289,6 @@ public class PropertyProducer {
 			configPropertyName = className + "." + fieldName;
 		}
 		return configPropertyName;
-	}
-
-	boolean isDependentScope(final Class<?> type) {
-		if (isPropertyProducerOverriderDependentScope == null) {
-			final Set<Bean<?>> beans = beanManager.getBeans(type);
-			final Bean<?> bean = beanManager.resolve(beans);
-			isPropertyProducerOverriderDependentScope = Dependent.class.equals(bean.getScope());
-		}
-		return isPropertyProducerOverriderDependentScope;
 	}
 
 	static final String convertStreamToString(final InputStream inputStream) {

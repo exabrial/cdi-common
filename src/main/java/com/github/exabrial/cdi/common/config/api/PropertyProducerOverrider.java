@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.config;
+package com.github.exabrial.cdi.common.config.api;
 
 import jakarta.enterprise.inject.spi.InjectionPoint;
 

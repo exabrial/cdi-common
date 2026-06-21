@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.config;
+package com.github.exabrial.cdi.common.config.cdi.producer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
@@ -15,11 +15,13 @@ import java.util.Set;
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
+import com.github.exabrial.cdi.common.instanceutil.InstanceUtil;
 import com.github.exabrial.cdi.common.slf4j.Slf4jLogProducer;
 
 import jakarta.inject.Inject;
 
-@Cdi(disableDiscovery = true, classes = { Slf4jLogProducer.class, PropertyProducer.class, TestInjectionOfProperty.class })
+@Cdi(disableDiscovery = true,
+		classes = { Slf4jLogProducer.class, InstanceUtil.class, PropertyProducer.class, TestInjectionOfProperty.class })
 class PropertyProducerITest {
 	@Inject
 	private TestInjectionOfProperty testInjectionOfProperty;
