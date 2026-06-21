@@ -50,12 +50,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>jakarta.enterprise</groupId>
-			<artifactId>jakarta.enterprise.cdi-api</artifactId>
-			<version>4.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
 			<version>2.1.1</version>
@@ -65,6 +59,24 @@
 			<groupId>jakarta.ejb</groupId>
 			<artifactId>jakarta.ejb-api</artifactId>
 			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.enterprise</groupId>
+			<artifactId>jakarta.enterprise.cdi-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.interceptor</groupId>
+			<artifactId>jakarta.interceptor-api</artifactId>
+			<version>2.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.json.bind</groupId>
+			<artifactId>jakarta.json.bind-api</artifactId>
+			<version>3.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -81,28 +93,23 @@
 		</dependency>
 
 		<dependency>
-			<groupId>jakarta.json.bind</groupId>
-			<artifactId>jakarta.json.bind-api</artifactId>
-			<version>3.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.johnzon</groupId>
 			<artifactId>johnzon-jsonb</artifactId>
 			<version>2.0.2</version>
-			<scope>provided</scope>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- test -->
 		<dependency>
 			<groupId>org.apache.openwebbeans</groupId>
-			<artifactId>openwebbeans-se</artifactId>
+			<artifactId>openwebbeans-junit5</artifactId>
 			<version>4.0.3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.openwebbeans</groupId>
-			<artifactId>openwebbeans-junit5</artifactId>
+			<artifactId>openwebbeans-se</artifactId>
 			<version>4.0.3</version>
 			<scope>test</scope>
 		</dependency>
