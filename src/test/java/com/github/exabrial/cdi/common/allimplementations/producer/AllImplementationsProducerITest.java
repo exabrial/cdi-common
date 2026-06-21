@@ -14,7 +14,7 @@ import com.github.exabrial.cdi.common.allimplementations.producer.test.model.Slf
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.SyserrOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.SysoutOutputService;
 import com.github.exabrial.cdi.common.allimplementations.producer.test.model.TestInjectionTarget;
-import com.github.exabrial.cdi.common.slf4j.Slf4jLogProducer;
+import com.github.exabrial.cdi.common.slf4j.producer.Slf4jLogProducer;
 
 import jakarta.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.slf4j;
+package com.github.exabrial.cdi.common.slf4j.producer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
