@@ -19,10 +19,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 
-import com.github.exabrial.cdi.common.config.model.annotation.Config;
-import com.github.exabrial.cdi.common.config.model.annotation.FileContents;
-import com.github.exabrial.cdi.common.instanceutil.InstanceUtil;
-import com.github.exabrial.cdi.common.instanceutil.model.InstanceHandle;
+import com.github.exabrial.cdi.common.config.api.model.annotation.Config;
+import com.github.exabrial.cdi.common.config.api.model.annotation.FileContents;
+import com.github.exabrial.cdi.common.instanceutil.api.InstanceUtil;
+import com.github.exabrial.cdi.common.instanceutil.api.model.InstanceHandle;
 import com.github.exabrial.junit5.injectmap.InjectExtension;
 import com.github.exabrial.junit5.injectmap.InjectionSource;
 

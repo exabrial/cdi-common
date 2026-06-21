@@ -15,7 +15,7 @@ import java.util.Set;
 import org.apache.openwebbeans.junit5.Cdi;
 import org.junit.jupiter.api.Test;
 
-import com.github.exabrial.cdi.common.instanceutil.InstanceUtil;
+import com.github.exabrial.cdi.common.instanceutil.api.InstanceUtil;
 import com.github.exabrial.cdi.common.slf4j.Slf4jLogProducer;
 
 import jakarta.inject.Inject;

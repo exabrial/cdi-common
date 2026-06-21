@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
-import com.github.exabrial.cdi.common.config.model.annotation.Config;
+import com.github.exabrial.cdi.common.config.api.model.annotation.Config;
 
 public final class ConfigUtils {
 

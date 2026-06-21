@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.github.exabrial.cdi.common.config.model.annotation.Config;
+import com.github.exabrial.cdi.common.config.api.model.annotation.Config;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
