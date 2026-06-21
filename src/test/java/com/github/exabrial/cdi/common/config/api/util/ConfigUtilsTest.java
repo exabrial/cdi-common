@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.config.util;
+package com.github.exabrial.cdi.common.config.api.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
