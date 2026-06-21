@@ -8,7 +8,7 @@
 		<BugPattern name="PATH_TRAVERSAL_IN" />
 	</Match>
 	<Match>
-		<Class name="com.github.exabrial.cdi.common.jsonb.InheritedPropertyVisibilityStrategy" />
+		<Class name="com.github.exabrial.cdi.common.jsonb.producer.InheritedPropertyVisibilityStrategy" />
 		<BugPattern name="SE_BAD_FIELD" />
 	</Match>
 </FindBugsFilter>

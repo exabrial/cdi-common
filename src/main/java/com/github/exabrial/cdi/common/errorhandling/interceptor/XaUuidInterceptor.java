@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.errorhandling;
+package com.github.exabrial.cdi.common.errorhandling.interceptor;
 
 import java.util.UUID;
 

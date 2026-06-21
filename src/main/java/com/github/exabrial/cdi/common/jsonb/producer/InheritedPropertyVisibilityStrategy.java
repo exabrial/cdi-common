@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.jsonb;
+package com.github.exabrial.cdi.common.jsonb.producer;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -16,9 +16,9 @@ import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.json.bind.config.PropertyVisibilityStrategy;
 
 /**
- * JSON-B visibility strategy that honors @JsonbTransient and @JsonbProperty, treats public fields as visible, and additionally
- * walks a getter's declaring-class interfaces so an annotation on an interface method (e.g. @JsonbTransient on a contract) is
- * respected even when the concrete override is unannotated. Results are cached per Field/Method.
+ * JSON-B visibility strategy that honors @JsonbTransient and @JsonbProperty, treats public fields as visible, and additionally walks a
+ * getter's declaring-class interfaces so an annotation on an interface method (e.g. @JsonbTransient on a contract) is respected even
+ * when the concrete override is un-annotated. Results are cached per Field/Method.
  *
  * @author jonathan.fisher
  */

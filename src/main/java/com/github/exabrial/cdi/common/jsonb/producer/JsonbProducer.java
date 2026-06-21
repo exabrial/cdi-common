@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.jsonb;
+package com.github.exabrial.cdi.common.jsonb.producer;
 
 import org.slf4j.Logger;
 
@@ -15,7 +15,7 @@ import jakarta.json.bind.config.PropertyNamingStrategy;
 
 @ApplicationScoped
 public class JsonbProducer {
-	static final String JOHNZON_USE_BIGDECIMAL_STRINGADAPTER = "johnzon.use-bigdecimal-stringadapter";
+	public static final String JOHNZON_USE_BIGDECIMAL_STRINGADAPTER = "johnzon.use-bigdecimal-stringadapter";
 
 	@Inject
 	private Logger log;

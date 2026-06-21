@@ -1,4 +1,4 @@
-package com.github.exabrial.cdi.common.config.cdi.producer;
+package com.github.exabrial.cdi.common.config.producer;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
