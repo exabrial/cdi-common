@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import com.github.exabrial.cdi.common.async.api.AsyncInitializable;
+import com.github.exabrial.cdi.common.async.api.model.annotation.SkipInitializationGuard;
 
 @ApplicationScoped
 public class TestAsyncService extends AsyncInitializable {
@@ -23,7 +24,7 @@ public class TestAsyncService extends AsyncInitializable {
 	@Override
 	protected void initialize() {
 		try {
-			Thread.sleep(1234);
+			Thread.sleep(534);
 		} catch (final InterruptedException interruptedException) {
 			Thread.currentThread().interrupt();
 		}
@@ -32,5 +33,10 @@ public class TestAsyncService extends AsyncInitializable {
 
 	public String getValue() {
 		return value;
+	}
+
+	@SkipInitializationGuard
+	public String getStaticInfo() {
+		return "available";
 	}
 }
