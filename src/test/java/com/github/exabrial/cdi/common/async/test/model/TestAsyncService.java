@@ -22,13 +22,14 @@ public class TestAsyncService extends AsyncInitializable {
 	}
 
 	@Override
-	protected void initialize() {
+	protected Object initialize() {
 		try {
 			Thread.sleep(534);
 		} catch (final InterruptedException interruptedException) {
 			Thread.currentThread().interrupt();
 		}
 		value = "initialized";
+		return null;
 	}
 
 	public String getValue() {
