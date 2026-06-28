@@ -1,9 +1,8 @@
 package com.github.exabrial.cdi.common.allimplementations.api.model.exception;
 
-import jakarta.ejb.ApplicationException;
+import com.github.exabrial.cdi.common.model.exception.CdiCommonException;
 
-@ApplicationException(inherited = true, rollback = true)
-public class AllImplementationsException extends RuntimeException {
+public class AllImplementationsException extends CdiCommonException {
 	private static final long serialVersionUID = 1L;
 
 	public AllImplementationsException(final String message) {

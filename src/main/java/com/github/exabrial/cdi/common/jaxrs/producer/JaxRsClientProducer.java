@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Default;
@@ -19,9 +22,6 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Configuration;
 import jakarta.ws.rs.core.Link;
 import jakarta.ws.rs.core.UriBuilder;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
 
 import org.slf4j.Logger;
 
