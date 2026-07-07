@@ -1,6 +1,7 @@
 package com.github.exabrial.cdi.common.errorhandling.interceptor;
 
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.AroundTimeout;
@@ -14,7 +15,7 @@ public class XaUuidInterceptor {
 
 	@AroundTimeout
 	@AroundInvoke
-	Object intercept(final InvocationContext ctx) throws Exception {
+	public Object intercept(final InvocationContext ctx) throws Exception {
 		boolean clearMdc = false;
 		try {
 			if (getMdc() == null) {
@@ -29,8 +30,8 @@ public class XaUuidInterceptor {
 		}
 	}
 
-	public static final String getMdc() {
-		return MDC.get(XA_UUID);
+	public static final void clear() {
+		MDC.remove(XA_UUID);
 	}
 
 	public static final void startMdc() {
@@ -38,10 +39,21 @@ public class XaUuidInterceptor {
 	}
 
 	public static final String randomUuid() {
-		return UUID.randomUUID().toString().substring(24);
+		final String xauuidCandidate = UUID.randomUUID().toString().substring(25);
+		final char initialChar = randomNonNumeric();
+		return initialChar + xauuidCandidate;
 	}
 
-	public static final void clear() {
-		MDC.remove(XA_UUID);
+	public static char randomNonNumeric() {
+		final int index = ThreadLocalRandom.current().nextInt(40);
+		if (index < 20) {
+			return (char) ('G' + index);
+		} else {
+			return (char) ('g' + index - 20);
+		}
+	}
+
+	public static final String getMdc() {
+		return MDC.get(XA_UUID);
 	}
 }
