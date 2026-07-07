@@ -7,8 +7,9 @@ Contributions are welcome! Whether it's a bug fix, new feature, documentation im
 1. Fork the repository
 2. Create a branch for your change
 3. Make your changes and ensure all tests pass (`mvn clean install`)
-4. Sign your commits with your PGP Key
-5. Submit a pull request with a clear description of what you changed and why
+4. PGP-sign all of your commits
+5. Add your name to the Signees section below; that signed commit is your binding agreement to the License and Contributor terms
+6. Submit a pull request with a clear description of what you changed and why
 
 ## Guidelines
 
@@ -16,17 +17,27 @@ Contributions are welcome! Whether it's a bug fix, new feature, documentation im
 - Add tests for new functionality
 - Keep pull requests focused; one logical change per PR
 
-## Copyright assignment and legal terms
+## Contributor Terms
 
 By submitting a pull request, issue, code, documentation, or contribution to this project, you agree to the following:
 
 - You assign copyright of your contribution to Jonathan S. Fisher.
-- You release all project authors, contributors, and users from any and all claims, legal action, and/or liability; in every jurisdiction; by you, and/or any current/past/future employers, and/or any related entities, arising from or related/unrelated to your contribution, and/or the use/knowledge of this project.
+- You grant every user of the project a patent license covering your contribution.
+- If you sue anyone claiming the project infringes your patent, your patent license above ends.
 - You confirm that you have the right to make this contribution, and that it does not violate any agreement with your employer or any other party.
-- If any provision of this agreement is found to be unenforceable, the remaining provisions shall continue in full force and effect.
+- Adding your name to the Signees section in a commit signed with your PGP key is your signature to these terms, and confirms that the signing key is yours and that you agree to be bound by them.
+- If any provision of any agreement is found to be unenforceable, the remaining provisions shall continue in full force and effect.
 
-These terms ensure the project can be maintained and used freely by everyone without legal uncertainty. If you have questions about these terms, please reach out first.
+
+These terms ensure the project can be maintained and used freely by everyone without legal uncertainty.
 
 ## License
 
-This project is licensed under the [European Union Public Licence v1.2](license.txt). See Main readme for full explanation.
+This project is licensed under the [European Union Public Licence v1.2](license.txt). See Main readme for additional explanation.
+
+
+## Signees
+
+I have read, understood, and agree to the contributor terms, and the EUPL 1.2 license. My pgp signature is my binding agreement to the license and contributor terms.
+
+- Jonathan S. Fisher
